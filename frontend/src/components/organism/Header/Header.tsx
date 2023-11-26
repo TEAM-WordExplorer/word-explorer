@@ -1,4 +1,4 @@
-import { SmallLogoIcon } from "../../assets";
+import { SmallLogoIcon } from "../../../assets";
 import { Link } from "react-router-dom";
 
 export default function Header() {
