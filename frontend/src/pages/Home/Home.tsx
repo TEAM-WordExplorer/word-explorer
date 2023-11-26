@@ -1,4 +1,5 @@
 /** @jsxImportSource @emotion/react */   // jsx pragma를 지정 -> css prop을 인식
+import Input from "../../components/atom/Input/Input";
 import ButtonGroup from "../../components/molecule/ButtonGroup/ButtonGroup";
 import Header from "../../components/organism/Header/Header";
 import { homeStyle, contentStyle } from "./styles";
@@ -21,6 +22,7 @@ export default function Home() {
           onClick1={ButtonClick1}
           onClick2={ButtonClick2}
         />
+        <Input/>
       </div>
 
     </div>

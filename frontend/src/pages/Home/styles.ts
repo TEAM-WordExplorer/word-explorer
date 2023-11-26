@@ -7,7 +7,8 @@ export const homeStyle = css`
 
 export const contentStyle = css`
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
 
   margin-top: 20px;
   
