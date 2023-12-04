@@ -5,6 +5,8 @@ import ButtonGroup from "../../components/molecule/ButtonGroup/ButtonGroup";
 import InputForm from "../../components/molecule/InputForm/InputForm";
 import Header from "../../components/organism/Header/Header";
 import { theme } from "../../style/theme";
+import Introduce from "./component/Introduce";
+import WordResultBox from "./component/WordResultBox";
 import { homeStyle, contentStyle } from "./styles";
 
 export default function Home() {
@@ -15,6 +17,26 @@ export default function Home() {
   const ButtonClick2 = () => {
     alert("2")
   }
+
+  // const wordList = [
+  //   {
+  //     word: "apple",
+  //     similarity: 10.04
+  //   },
+  //   {
+  //     word: "watermelon",
+  //     similarity: 12.12
+  //   },
+  //   {
+  //     word: "apple",
+  //     similarity: 10.04
+  //   },
+  // ]
+
+  const wordList: { word: string; similarity: number }[] = [];
+  // const newWordResult = { word: 'newWord', similarity: 0.9 };
+  // wordList.push(newWordResult);
+
   return(
     <div css={homeStyle}>
       <Header/>
@@ -31,6 +53,8 @@ export default function Home() {
           color={theme.purple.main}
           width="170px"
         />
+        <WordResultBox wordResultList={wordList} />
+        <Introduce/>
       </div>
 
     </div>

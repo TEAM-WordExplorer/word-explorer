@@ -5,5 +5,6 @@ export const InputFormStyle = css`
   flex-direction: column;
   align-items: center;
 
-  margin: 50px 0;
+  margin-top: 40px;
+  margin-bottom: 20px;
 `
