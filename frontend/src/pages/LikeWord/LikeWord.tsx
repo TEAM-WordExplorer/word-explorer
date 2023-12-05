@@ -1,5 +1,6 @@
 /** @jsxImportSource @emotion/react */   // jsx pragma를 지정 -> css prop을 인식
 
+import { useNavigate } from "react-router";
 import SquareButton from "../../components/atom/Button/SquareButton";
 import Header from "../../components/organism/Header/Header";
 import { theme } from "../../style/theme";
@@ -7,8 +8,10 @@ import { LikeWordBox1, LikeWordBox2, LikeWordContainer, LikeWordWrapper } from "
 
 export default function LikeWord() {
 
-  const ButtonClick = () => {
-    alert("1")
+  const navigate = useNavigate();
+
+  const ButtonClick = (word: string) => {
+    navigate(`/like/${word}`)
   }
 
   const likeWordList = [
@@ -24,7 +27,7 @@ export default function LikeWord() {
             <div key={index} css={LikeWordBox1}>
               <SquareButton
                 message={word}
-                onClick={ButtonClick}
+                onClick={()=>ButtonClick(word)}
                 color={theme.gray.main}
               />
             </div>
@@ -32,7 +35,7 @@ export default function LikeWord() {
               <div key={index} css={LikeWordBox2}>
               <SquareButton
                 message={word}
-                onClick={ButtonClick}
+                onClick={() => ButtonClick(word)}
                 color={theme.purple.sub1}
               />
               </div>
