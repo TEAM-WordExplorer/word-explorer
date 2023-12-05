@@ -1,6 +1,5 @@
 /** @jsxImportSource @emotion/react */   // jsx pragma를 지정 -> css prop을 인식
-import RoundButton from "../../components/atom/Button/RoundButton";
-import Input from "../../components/atom/Input/Input";
+import { useNavigate } from "react-router";
 import ButtonGroup from "../../components/molecule/ButtonGroup/ButtonGroup";
 import InputForm from "../../components/molecule/InputForm/InputForm";
 import Header from "../../components/organism/Header/Header";
@@ -11,11 +10,13 @@ import { homeStyle, contentStyle } from "./styles";
 
 export default function Home() {
 
+  const navigate = useNavigate();
+
   const ButtonClick1 = () => {
-    alert("1")
+    navigate('/like')
   }
   const ButtonClick2 = () => {
-    alert("2")
+    navigate('/quiz')
   }
 
   // const wordList = [

@@ -9,7 +9,7 @@ export const homeStyle = css`
 
 export const contentStyle = css`
   display: flex;
-  flex: 1;
+  // flex: 1;
   flex-direction: column;
   justify-content: center;
   align-items: center;
