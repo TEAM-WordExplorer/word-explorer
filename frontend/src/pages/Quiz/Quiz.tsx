@@ -17,7 +17,7 @@ export default function Quiz() {
         <Introduce/>
         <RoundButton 
           message="시험 보기" 
-          onClick={() => navigate('/') }
+          onClick={() => navigate('/quiz/1') }
           width="120px"
           borderRadius="15px"
         />

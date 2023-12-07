@@ -4,6 +4,7 @@ import Home from './pages/Home/Home';
 import LikeWord from './pages/LikeWord/LikeWord';
 import WordDetail from './pages/LikeWord/page/WordDetail';
 import Quiz from './pages/Quiz/Quiz';
+import QuizDetail from './pages/Quiz/page/QuizDetail';
 
 function App() {
   return (
@@ -13,7 +14,7 @@ function App() {
         <Route path='/like' element={<LikeWord/>}></Route>
         <Route path='/like/:word' element={<WordDetail/>}></Route>
         <Route path='/quiz' element={<Quiz/>}></Route>
-        <Route></Route>
+        <Route path='/quiz/:id' element={<QuizDetail />}></Route>
         <Route></Route>
       </Routes>
     </BrowserRouter>
