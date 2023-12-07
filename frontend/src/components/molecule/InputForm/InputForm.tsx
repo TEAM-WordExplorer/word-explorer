@@ -7,20 +7,21 @@ import { InputFormStyle } from "./styles";
 interface RoundButtonProps {
   message: string;
   onClick: () => void;
-  color: string;
   width: string;
+  borderRadius: string;
 }
 
 export default function InputForm(props: RoundButtonProps) {
-  const { message, onClick, color, width } = props;
+  const { message, onClick, width, borderRadius } = props;
   return (
     <div css={InputFormStyle}>
       <Input/>
       <RoundButton 
           message={message} 
           onClick={onClick} 
-          color={color}
-          width={width}/>
+          width={width}
+          borderRadius={borderRadius}
+      />
     </div>
   )
 }

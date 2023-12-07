@@ -3,16 +3,16 @@ import { theme } from "../../../style/theme";
 
 export const commonButtonStyle = css`
   border: none;
-  border-radius: 20px;
 `
-export const roundButtonStyle = (color: string, width: string) => css`
+export const roundButtonStyle = (width: string, borderRadius: string) => css`
   ${commonButtonStyle};
+  border-radius: ${borderRadius};
 
   width: ${width};
   height: 40px;
   margin: 20px;
 
-  background-color: ${color};
+  background-color: ${theme.purple.main};
   color: ${theme.white};
 `
 
@@ -24,4 +24,5 @@ export const squareButtonStyle = (color: string) => css`
   margin: 7px 14px;
 
   background-color: ${color};
+  border-radius: 20px;
 `
