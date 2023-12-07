@@ -11,7 +11,7 @@ interface ButtonGroupProps {
 export default function ButtonGroup(props: ButtonGroupProps) {
   const { message1, message2, onClick1, onClick2 } = props;
   return (
-    <div>
+    <div style={{marginTop: "20px"}}>
       <SquareButton message={message1} onClick={onClick1} color={theme.gray.main}/>
       <SquareButton message={message2} onClick={onClick2} color={theme.purple.sub1}/>
     </div>
