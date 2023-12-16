@@ -3,14 +3,23 @@ import { useNavigate } from "react-router";
 import ButtonGroup from "../../components/molecule/ButtonGroup/ButtonGroup";
 import InputForm from "../../components/molecule/InputForm/InputForm";
 import Header from "../../components/organism/Header/Header";
-import { theme } from "../../style/theme";
 import Introduce from "./component/Introduce";
 import WordResultBox from "./component/WordResultBox";
 import { homeStyle, contentStyle } from "./styles";
+import { useState } from "react";
+import axios from "axios";
+import { getCsrfToken, postApi } from "../../api/authService";
 
 export default function Home() {
 
   const navigate = useNavigate();
+
+  const [word, setWord] = useState("");
+  const [wordList, setWordList] = useState<{ word: string; similarity: number }[]>(() => {
+    // 로컬 스토리지 사용
+    const storedWordList = localStorage.getItem("wordList");
+    return storedWordList ? JSON.parse(storedWordList) : [];
+  });
 
   const ButtonClick1 = () => {
     navigate('/like')
@@ -19,24 +28,22 @@ export default function Home() {
     navigate('/quiz')
   }
 
-  // const wordList = [
-  //   {
-  //     word: "apple",
-  //     similarity: 10.04
-  //   },
-  //   {
-  //     word: "watermelon",
-  //     similarity: 12.12
-  //   },
-  //   {
-  //     word: "apple",
-  //     similarity: 10.04
-  //   },
-  // ]
+  const handleWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setWord(e.target.value)
+  }
 
-  const wordList: { word: string; similarity: number }[] = [];
-  // const newWordResult = { word: 'newWord', similarity: 0.9 };
-  // wordList.push(newWordResult);
+  const handleSubmit = async() => {
+    const newWordResult = { word: word, similarity: 0.9 };
+    setWordList((prevWordList) => [...prevWordList, newWordResult]);
+    setWord("");
+
+    localStorage.setItem("wordList", JSON.stringify([...wordList, newWordResult]));
+
+    const csrfToken = await getCsrfToken();
+    const response = await postApi(csrfToken, 'url', word);
+    console.log(response)
+  }
+
 
   return(
     <div css={homeStyle}>
@@ -50,7 +57,9 @@ export default function Home() {
         />
         <InputForm
           message="추측하기" 
-          onClick={ButtonClick1}
+          value={word}
+          onChange={handleWordChange}
+          onClick={handleSubmit}
           width="170px"
           borderRadius="15px"
         />

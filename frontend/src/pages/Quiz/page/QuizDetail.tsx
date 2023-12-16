@@ -14,12 +14,18 @@ export default function QuizDetail() {
   const navigate = useNavigate();
 
   const fruits = ['사과', '레몬', '배'];
+  const [answer, setAnswer] = useState("");
   const [currentPage, setCurrentPage] = useState(0);  
   const isLastPage = currentPage === fruits.length - 1;
 
   const handleNextPage = () => {
     setCurrentPage((prev) => (prev + 1))
   }
+
+  const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setAnswer(e.target.value)
+  }
+
   const handleSubmit = () => {
     navigate('/loading')
   }
@@ -29,7 +35,7 @@ export default function QuizDetail() {
       <div css={QuizDetailContainer}>
         <Box word={fruits[currentPage]} />
         <div css={QuizInputForm}>
-          <Input />
+          <Input value={answer} onChange={handleAnswerChange}/>
           <div css={NextButtonForm}>
             <RoundButton
               message={isLastPage ? "채점 하기" : "다음"}
