@@ -13,15 +13,15 @@ export default function LikeWord() {
   const navigate = useNavigate();
 
   /*** 좋아요 단어 목록 가져오는 부분***/
-  // useEffect(()=>{
-  //   try{
-  //     const response = axios.get('url');
-  //     console.log(response)
-  //   }
-  //   catch(error){
-  //     console.log(error);
-  //   }
-  // },[])
+useEffect(()=>{
+  try{
+    const response = axios.get('http://127.0.0.1:8000/like/');
+    console.log(response)
+}
+    catch(error){
+    console.log(error);
+    }
+    },[])
 
   const ButtonClick = (word: string) => {
     navigate(`/like/${word}`)
