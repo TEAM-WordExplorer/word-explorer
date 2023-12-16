@@ -6,16 +6,19 @@ import { InputFormStyle } from "./styles";
 
 interface RoundButtonProps {
   message: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>)
+    => void;
   onClick: () => void;
   width: string;
   borderRadius: string;
 }
 
 export default function InputForm(props: RoundButtonProps) {
-  const { message, onClick, width, borderRadius } = props;
+  const { message, value, onChange, onClick, width, borderRadius } = props;
   return (
     <div css={InputFormStyle}>
-      <Input/>
+      <Input value={value} onChange={onChange}/>
       <RoundButton 
           message={message} 
           onClick={onClick} 

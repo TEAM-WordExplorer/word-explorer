@@ -7,27 +7,13 @@ import UserInfoInputForm from "../../components/molecule/InputForm/UserInfoInput
 import Header from "../../components/organism/Header/Header";
 import { registerContainer, registerInputFormContainer, registerWrapper } from "./styles";
 import axios from 'axios';
+import { getCsrfToken, postApi } from "../../api/authService";
 
 export default function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setPasswordConfirm] = useState("");
-
-  const[csrfToken, setCsrfToken] = useState('');
-
-  // useEffect(() => {
-  //   const fetchCsrfToken = async () => {
-  //     try {
-  //       const response = await axios.get('csrf 가져올 url');
-  //       setCsrfToken(response.data.csrfToken);
-  //     } catch (error) {
-  //       console.error('CSRF 토큰을 가져오는 중 에러 발생:', error);
-  //     }
-  //   };
-
-  //   fetchCsrfToken();
-  // }, []);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
@@ -48,23 +34,11 @@ export default function Register() {
       email: email,
       password: password,
     }
+    const csrfToken = await getCsrfToken('url');
 
-    try {
-      const response = await axios.post('url 주소', formData,
-        {
-          headers: {
-            'Content-Type': 'application/json',
-            'X-CSRFToken': csrfToken
-          }
-        }
-      )
-      console.log(response.data)
-
-    } catch (error) {
-      console.error("Error submitting data:", error);
-    }
+    const response = postApi(csrfToken, 'url', formData);
+    console.log(response)
   }
-
 
   return (
     <div css={registerWrapper}>
