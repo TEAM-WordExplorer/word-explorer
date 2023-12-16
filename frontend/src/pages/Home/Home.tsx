@@ -41,8 +41,7 @@ export default function Home() {
 
   const handleSubmit = async() => {
     const wordData = {
-      word: word,
-      
+      word: word
     };
 
     const newWordResult = { word: word, similarity: 0.9 };
@@ -50,11 +49,24 @@ export default function Home() {
     try {
       const response = await axios.post('http://127.0.0.1:8000/question/game/', wordData);
       console.log(response.data); // 서버에서 온 응답 확인
-
+      
       // 서버로부터 받은 응답에 따라 필요한 처리 수행
       if (response.data.success) {
         // 성공적으로 처리된 경우
-        setIsModalOpen(true);
+        const newWordResult = response.data; // Use the response directly
+        console.log(newWordResult); // 서버에서 온 응답 확인
+
+        if (newWordResult.similarity >= 0.999) {
+          setIsModalOpen(true); // Display modal for correct answer
+        } else {
+          // Handle the case when similarity is not sufficient for a correct answer
+          console.log('Incorrect answer. Try again!');
+        }
+        setWordList((prevWordList) => [...prevWordList, newWordResult]);
+        setWord("");
+        localStorage.setItem("wordList", JSON.stringify([...wordList, newWordResult]));
+
+        
       } 
       else {
         // 처리에 실패한 경우
@@ -68,11 +80,7 @@ export default function Home() {
         console.log(error);
       }
     }
-    setWordList((prevWordList) => [...prevWordList, newWordResult]);
-    setWord("");
-
-    localStorage.setItem("wordList", JSON.stringify([...wordList, newWordResult]));
-
+    
     // const csrfToken = await getCsrfToken('url');
     // const response = postApi(csrfToken, 'url', word);
     // console.log(response)
