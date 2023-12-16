@@ -1,13 +1,15 @@
 from django.core.management.base import BaseCommand
 from django.db.models import Count
-from django.http import HttpResponse
+from django.http import HttpResponse,JsonResponse, HttpResponseBadRequest  # 추가된 부분
+
 import requests
 from django.shortcuts import render
 from django.db import models
 from django.utils import timezone
 from word.models import Word, WordGameResult
 from user.models import User
-
+from django.views.decorators.csrf import csrf_exempt
+import json
 # 오늘의 단어
 # 1) 게임화면
 # 2) 틀렸을때 -> 유사도를 검색해서 보여준다. & 뒤로가기 버튼
@@ -49,52 +51,25 @@ def call_ETRI_Word_Relation_API(first_word, first_sense_id, second_word, second_
         print("[ETRI API Error Response] " + str(response.text))
 
 
-def calculate_similarity(word1, word2):
-    # Add your logic to calculate similarity between words
-    pass
+@csrf_exempt
+def play_game(request):
+    try:
+        data = json.loads(request.body)
+        user_input = data.get('user_input')
+        print(data)
+        if user_input:
+            # Call ETRI API
+            #call_ETRI_Word_Relation_API(user_input, 'sense_id_1', 'example_word_2', 'sense_id_2')
 
+            # Process the ETRI API result (replace with your logic)
+            {
+                "results": {"word": "apple", "similarity": 0.8}
+            }  # test
+            return JsonResponse(result)
 
-def play_game(request, user_id, user_input, word_id):
-    # 게임을 진행하는 함수
-    if user_input:  # 사용자 input
-        # 게임
-        word = Word.objects.create(text=user_input)
-        word.save()
-        call_ETRI_Word_Relation_API(
-            user_input, 'sense_id1', 'admin_input_word', 'sense_id2')
-
-        return HttpResponse(f"User input word '{user_input}' successfully processed!")
-    else:  # 관리자 input
-        try:
-            # 관리자가 하나 input(매일 교체)
-            word = Word.objects.get(wordId=word_id)
-            word_text = word.text
-
-            # ETRI API 호출
-            call_ETRI_Word_Relation_API(
-                'admin_input_word', 'sense_id1', word_text, 'sense_id2')
-
-            # 유사도 검사
-            similarity_score = calculate_similarity(
-                'admin_input_word', word_text)
-
-            if similarity_score >= 1:
-                result_message = "정답"
-            else:
-                result_message = f"유사도: {similarity_score}"
-
-            # 게임 결과 저장
-            result = WordGameResult.objects.create(
-                wordId=word,
-                userId=User.objects.get(userId=user_id),
-                isCorrect=similarity_score >= 1
-            )
-            result.save()
-
-            return HttpResponse(result_message)
-        except ObjectDoesNotExist:
-            return HttpResponse("Word not found")
-
+        return HttpResponseBadRequest("Invalid input data")
+    except json.JSONDecodeError:
+        return HttpResponseBadRequest("Invalid JSON data")
 
 
 def incorrect_answer(request):

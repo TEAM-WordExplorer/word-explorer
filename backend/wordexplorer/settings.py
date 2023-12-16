@@ -145,6 +145,16 @@ CORS_ORIGIN_WHITELIST = [
     'http://127.0.0.1',
     'http://0.0.0.0',
 ]
+
+# CORS_ALLOW_METHODS 설정 추가
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
 # REST framework settings
 REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
