@@ -5,6 +5,7 @@ from django.views.decorators.csrf import csrf_exempt
 from user.models import User
 from .models import Word
 import googletrans
+import random
 from rest_framework.decorators import api_view
 
 def translator_to_eng(korean):
@@ -12,6 +13,30 @@ def translator_to_eng(korean):
     english = translator.translate(korean, dest="en")
     print(english.text)
     return english.text
+
+
+@csrf_exempt
+@api_view(['POST'])
+def word_quiz(request):
+    print('.')
+    try:
+        user_id = request.data.get("userId")
+        print(user_id)
+        user = get_object_or_404(User, id=user_id)
+        like_words = user.likeWords.all()
+        eng_list={}
+        random.shuffle(like_words)
+        for word in like_words:
+            eng_list[word.text] = translator_to_eng(word.text)
+            print(word.text)
+        serialized_words = [{'id': word.wordId, 'name': word.text, 'eng_text': eng_list[word.text]}
+                            for word in like_words]
+
+        return JsonResponse({'liked_words': serialized_words})
+
+    except User.DoesNotExist:
+        return JsonResponse({'error': 'User not found'}, status=404)
+
 
 
 @csrf_exempt
