@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */   // jsx pragma를 지정 -> css prop을 인식
 
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import Header from "../../../components/organism/Header/Header";
 import QuizResultBox from "../component/QuizResultBox";
 import Title from "../component/Title";

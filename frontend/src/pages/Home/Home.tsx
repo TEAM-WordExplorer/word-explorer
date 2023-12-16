@@ -48,7 +48,7 @@ export default function Home() {
     // const response = postApi(csrfToken, 'url', word);
     // console.log(response)
 
-    // if(response.similariry === 1.0) {
+    // if(response.similariry === 100.0) {
     // setIsModalOpen(true);
     // }
   }
