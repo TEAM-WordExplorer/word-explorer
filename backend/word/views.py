@@ -1,29 +1,21 @@
 # word/views.py
 
-from django.shortcuts import render
-from .models import Word
-from datetime import date
-import random
-def word_select(current_date):
-    seed = f"{current_date}"
-    random.seed(seed)
-    # 데이터베이스에서 모든 단어를 가져옴
-    all_words = Word.objects.all()
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
 
-    # 단어의 수를 가져와서 난수의 범위로 설정
-    num_words = len(all_words)
-
-    # 난수 생성
-    random_index = random.randint(0, num_words - 1)
-
-    return random_index
+from django.contrib.auth.decorators import login_required
+from rest_framework.decorators import api_view
 
 
-def today_word(request):
-    # 오늘 날짜에 해당하는 단어 조회
-    current_date = date.today()
-
-    today_word = word_select(current_date)
-    
-    context = {'today_word': today_word}
-    return render(request, 'today_word.html', context)
+@login_required
+@csrf_exempt
+def like_word_list(request):
+    try:
+        user = request.user
+        print(user)
+        liked_words = user.likeWords.all()
+        word_list = [{'word': word.word} for word in liked_words]
+        print(word_list)
+        return JsonResponse({'success': True, 'word_list': word_list})
+    except Exception as e:
+        return JsonResponse({'success': False, 'message': str(e)})

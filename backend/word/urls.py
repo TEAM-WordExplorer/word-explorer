@@ -4,5 +4,5 @@ from django.views.decorators.csrf import csrf_exempt
 app_name = "word"
 
 urlpatterns = [
-    path('today-word/', views.today_word, name='today_word'),
+    path('like/', views.like_word_list, name='like_word_list'),
 ]

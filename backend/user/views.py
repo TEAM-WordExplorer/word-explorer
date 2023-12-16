@@ -60,12 +60,13 @@ def login(request):
         user = User.objects.get(email=email)
     except User.DoesNotExist:  # 가입 정보가 없을 경우
         return JsonResponse({'success': False, 'message': '가입 정보가 존재하지 않습니다.'})
-
+    uid=user.id
+    print(uid)
     if user is not None:
         if user.check_password(password):  # 해쉬화 해서 저장했기 때문에 해당 함수가 필요
             # 인증 성공 시 로그인 처리
             auth_login(request, user)
-            return JsonResponse({'success': True, 'message': user.nickname+'님 반갑습니다.'})
+            return JsonResponse({'success': True, 'message': user.nickname+'님 반갑습니다.', 'uid': uid})
         else:  # 비밀번호가 틀릴 경우
             return JsonResponse({'success': False, 'message': '비밀번호가 일치하지 않습니다.'})
 

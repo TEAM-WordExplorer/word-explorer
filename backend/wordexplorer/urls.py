@@ -8,6 +8,6 @@ urlpatterns = [
     path("question/", include("question.urls")),  # 매일 한단어 추측
     path("quiz/", include("quiz.urls")), # 단어 시험
     path("user/", include("user.urls")),
-    path("word/",include("word.urls")),
+    path("",include("word.urls")),
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
