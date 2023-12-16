@@ -41,9 +41,10 @@ def word_select():
         idx=today_word.index(":")
         today_word = today_word[idx+2:]
         #print(today_word)
-
+    
     except Word.DoesNotExist:
         print("해당 ID에 해당하는 객체가 존재하지 않습니다.")
+        today_word = "하늘"
     
     return today_word
 
