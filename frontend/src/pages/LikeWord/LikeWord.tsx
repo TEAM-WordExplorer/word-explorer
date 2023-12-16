@@ -40,12 +40,6 @@ export default function LikeWord() {
     fetchData();
   }, [userId]);
 
-  const ButtonClick = (word: string) => {
-    navigate(`/like/${word}`);
-  };
-
-
-
   return (
     <div css={LikeWordWrapper}>
       <Header />
@@ -55,7 +49,7 @@ export default function LikeWord() {
             <div key={index} css={LikeWordBox1}>
               <SquareButton
                 message={word}
-                onClick={() => ButtonClick(word)}
+                onClick={()=>{}}
                 color={theme.gray.main}
               />
             </div>
@@ -63,7 +57,7 @@ export default function LikeWord() {
               <div key={index} css={LikeWordBox2}>
                 <SquareButton
                   message={word}
-                  onClick={() => ButtonClick(word)}
+                  onClick={() => { }}
                   color={theme.purple.sub1}
                 />
               </div>
