@@ -9,6 +9,7 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import ensure_csrf_cookie
 from rest_framework.response import Response
 from rest_framework import status
+from django.views.decorators.csrf import csrf_exempt
 
 from django.middleware.csrf import get_token
 from rest_framework.decorators import api_view
@@ -24,17 +25,18 @@ def get_csrf_token(request):
 
 
 @api_view(['POST'])
+@csrf_exempt
 def register(request):
     try:
-        # image_file = request.FILES['image']
         email = request.data.get("email")
-        nickname = request.data.get('nickname')
+        nickname = request.data.get('name')
         password = request.data.get('password')
-
+        print(".")
         # 비밀번호를 해시하여 저장
         hashed_password = make_password(password)
     except:
         return Response({'message': '잘못된 접근입니다'}, status=status.HTTP_400_BAD_REQUEST)
+    print(".")
 
     # 사용자 생성
     user = User.objects.create(
@@ -44,6 +46,7 @@ def register(request):
     return JsonResponse({'success': True, 'message': '회원가입이 완료되었습니다.'})
 
 
+@csrf_exempt
 @api_view(['POST'])
 def login(request):
 

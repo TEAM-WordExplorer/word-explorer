@@ -8,28 +8,47 @@ import Header from "../../components/organism/Header/Header";
 import { loginContainer, loginInputFormContainer, loginWrapper, registerLinkContainer } from "./styles";
 import { useState } from "react";
 import axios from "axios";
-import { getCsrfToken, postApi } from "../../api/authService";
+import { useNavigate } from 'react-router-dom';
 
 export default function Login() {
-  const [name, setName] = useState("");
+  const navigate = useNavigate();
+  const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [success, setSuccess] = useState(false);
 
-  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setName(e.target.value)
-    console.log(name)
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPassword(e.target.value)
+    console.log(password)
   }
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
   const handleLogin = async () => {
     const formData = {
-      name: name,
       email: email,
+      password: password,
+
     }
 
-    const csrfToken = await getCsrfToken('url');
-    const response = postApi(csrfToken, 'url', formData)
-    console.log(response)
+    try {
+      // Django의 로그인 API 호출
+      const response = await axios.post('http://127.0.0.1:8000/user/login/', formData);
+
+      if (response.data.success) {
+        setSuccess(true);
+        // 회원가입 성공 시 로그인 페이지로 이동
+        navigate('/');
+      } else {
+        console.error('Error during registration:', response.data.message);
+      }
+    }
+    catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log(error);
+      }
+    }
 
     
   }
@@ -40,8 +59,8 @@ export default function Login() {
       <div css={loginContainer}>
         <BigLogoIcon/>
         <div css={loginInputFormContainer}>
-          <UserInfoInputForm title="이메일" value={name} onChange={handleNameChange}/>
-          <UserInfoInputForm title="비밀번호" value={email} onChange={handleEmailChange}/>
+          <UserInfoInputForm title="이메일" value={email} onChange={handleEmailChange}/>
+          <UserInfoInputForm title="비밀번호" value={password} onChange={handlePasswordChange}/>
         </div>
         <div>
           <RoundButton
