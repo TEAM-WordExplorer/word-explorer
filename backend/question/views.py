@@ -32,10 +32,11 @@ def word_select():
     # 단어의 수를 가져와서 난수의 범위로 설정
     num_words = len(all_words)
 
-    # 난수 생성
-    random_index = random.randint(0, num_words - 1)
     
     try:
+        # 난수 생성
+        random_index = random.randint(0, num_words - 1)
+
         today_word = Word.objects.get(wordId=random_index)
         wid = random_index
         today_word = str(today_word)
@@ -57,9 +58,9 @@ def call_Word_Relation_API(first_word, second_word):
     openApiURL = "http://aiopen.etri.re.kr:8000/WiseWWN/WordRel"
     accessKey = "60e382da-3080-4a0f-819a-e8ff6e4bd650"
 
-    firstWord = 'first_word'
-    secondWord = 'second_word'
-
+    firstWord = first_word
+    secondWord = second_word
+    print(second_word)
     requestJson = {
         "argument": {
             'first_word': firstWord,
@@ -77,7 +78,7 @@ def call_Word_Relation_API(first_word, second_word):
     )
 
     response_data = json.loads(response.data.decode("utf-8"))
-    
+    print(response_data)
     # 유사도 값 추출 (ETRI 알고리즘의 유사도 값)
 
     etri_similarity = response_data["return_object"]["WWN WordRelInfo"]["WordRelInfo"]["Similarity"][0]["SimScore"]
