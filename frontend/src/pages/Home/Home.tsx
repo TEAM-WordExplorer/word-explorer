@@ -7,13 +7,13 @@ import Header from "../../components/organism/Header/Header";
 import Introduce from "./component/Introduce";
 import WordResultBox from "./component/WordResultBox";
 import { homeStyle, contentStyle } from "./styles";
-import axios from "axios";
-import { getCsrfToken, postApi } from "../../api/authService";
 import AnswerModal from "./component/AnswerModal";
+import { useRecoilValue } from "recoil";
+import { IsLoggedInState } from "../../atom/LoginInfo";
 
 export default function Home() {
   const navigate = useNavigate();
-
+  const isLoggedIn = useRecoilValue(IsLoggedInState);
 
   const [word, setWord] = useState("");
   const [wordList, setWordList] = useState<{ word: string; similarity: number }[]>(() => {
@@ -24,12 +24,13 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const ButtonClick1 = () => {
-    navigate('/like');
+    if(isLoggedIn) navigate('/like');
+    else alert("로그인이 필요합니다.")
   };
 
   const ButtonClick2 = () => {
-
-    navigate('/quiz')
+    if (isLoggedIn) navigate('/quiz')
+    else alert("로그인이 필요합니다.")
   }
 
   const handleWordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
