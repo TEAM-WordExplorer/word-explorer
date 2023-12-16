@@ -27,8 +27,8 @@ export default function Login() {
       email: email,
     }
 
-    const csrfToken = await getCsrfToken('url');
-    const response = postApi(csrfToken, 'url', formData)
+    const csrfToken = await getCsrfToken('login');
+    const response = postApi(csrfToken, 'login', formData)
     console.log(response)
 
     
