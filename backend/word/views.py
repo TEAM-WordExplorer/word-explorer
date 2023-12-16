@@ -55,7 +55,7 @@ def like_word_list(request):
         like_words = user.likeWords.all()
         for word in like_words:
             print(word.text)
-        serialized_words = [{'id': word.wordId, 'name': word.text,'eng':word.eng_text}
+        serialized_words = [{'id': word.wordId, 'name': word.text}
                             for word in like_words]
 
         return JsonResponse({'liked_words': serialized_words})
