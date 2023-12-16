@@ -10,7 +10,8 @@ local_settings.py
 db.sqite3
 
 media
-
+.DS_Store
+*.pyc
 # If your build process includes running collectstatic, then you probably don't need or want to include staticfiles/
 # in your Git repository. Update and uncomment the following line accordingly.
 ### Django.Python Stack ###
