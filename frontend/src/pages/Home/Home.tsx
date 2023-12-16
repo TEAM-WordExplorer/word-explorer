@@ -1,5 +1,6 @@
-/** @jsxImportSource @emotion/react */   // jsx pragma를 지정 -> css prop을 인식
+/** @jsxImportSource @emotion/react */
 import { useNavigate } from "react-router";
+import { useState } from "react";
 import ButtonGroup from "../../components/molecule/ButtonGroup/ButtonGroup";
 import InputForm from "../../components/molecule/InputForm/InputForm";
 import Header from "../../components/organism/Header/Header";
@@ -12,8 +13,8 @@ import { getCsrfToken, postApi } from "../../api/authService";
 import AnswerModal from "./component/AnswerModal";
 
 export default function Home() {
-
   const navigate = useNavigate();
+
 
   const [word, setWord] = useState("");
   const [wordList, setWordList] = useState<{ word: string; similarity: number }[]>(() => {
@@ -24,9 +25,11 @@ export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const ButtonClick1 = () => {
-    navigate('/like')
-  }
+    navigate('/like');
+  };
+
   const ButtonClick2 = () => {
+
     navigate('/quiz')
   }
 
@@ -52,8 +55,9 @@ export default function Home() {
 
 
   return(
+
     <div css={homeStyle}>
-      <Header/>
+      <Header />
       <div css={contentStyle}>
         <ButtonGroup
           message1="좋아요 단어"
@@ -66,16 +70,17 @@ export default function Home() {
           value={word}
           onChange={handleWordChange}
           onClick={handleSubmit}
+
           width="170px"
           borderRadius="15px"
         />
+        
         <WordResultBox wordResultList={wordList} />
-        <Introduce/>
+        <Introduce />
       </div>
       {isModalOpen && (
         <AnswerModal word={word}/>
       )}
-
     </div>
-  )
+  );
 }
