@@ -9,12 +9,16 @@ import { BigLogoIcon } from "../../../assets";
 export default function Loading() {
   const navigate = useNavigate();
   const location = useLocation();
-  const answerList = location.state;
+  const { answerList, englishWordList } = location.state;
 
   const [loadingText, setLoadingText] = useState('');
   
   useEffect(() => {
-    const timer = setTimeout(() => navigate('/quiz/result', {state: answerList})
+    const timer = setTimeout(() => navigate('/quiz/result', 
+      {state: {
+        answerList: answerList,
+        englishWordList: englishWordList,
+      }})
       , 3000);
 
     const interval = setInterval(() => {
