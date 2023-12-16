@@ -46,7 +46,7 @@ def register(request):
     return JsonResponse({'success': True, 'message': '회원가입이 완료되었습니다.'})
 
 
-
+@csrf_exempt
 @api_view(['POST'])
 def login(request):
 
