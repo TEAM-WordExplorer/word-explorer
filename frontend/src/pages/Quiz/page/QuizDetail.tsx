@@ -11,14 +11,15 @@ import { NextButtonForm, QuizDetailContainer, QuizDetailWrapper, QuizInputForm }
 export default function QuizDetail() {
   const navigate = useNavigate();
   const location = useLocation();
-  const { koreanWordList, englishWordList } = location.state;
+  // 목적지 라우트에서
+  const { koreanWordList, englishWordList } = useLocation().state;
 
   const [answer, setAnswer] = useState("");
   const [currentPage, setCurrentPage] = useState(0);  
   const [answerList, setAnswerList] = useState({});
 
   const isLastPage = currentPage === koreanWordList.length - 1;
-
+  
   const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnswer(e.target.value)
   }
@@ -28,6 +29,7 @@ export default function QuizDetail() {
   }, [answer, currentPage]);
 
   const handleSubmit = () => {
+    console.log(koreanWordList)
     console.log(answerList)
     if (isLastPage) {
       // 마지막 페이지일 때 loading 페이지로 이동
