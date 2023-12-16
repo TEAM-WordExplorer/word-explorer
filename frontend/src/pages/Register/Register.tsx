@@ -16,18 +16,18 @@ export default function Register() {
 
   const[csrfToken, setCsrfToken] = useState('');
 
-  useEffect(() => {
-    const fetchCsrfToken = async () => {
-      try {
-        const response = await axios.get('csrf 가져올 url');
-        setCsrfToken(response.data.csrfToken);
-      } catch (error) {
-        console.error('CSRF 토큰을 가져오는 중 에러 발생:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchCsrfToken = async () => {
+  //     try {
+  //       const response = await axios.get('csrf 가져올 url');
+  //       setCsrfToken(response.data.csrfToken);
+  //     } catch (error) {
+  //       console.error('CSRF 토큰을 가져오는 중 에러 발생:', error);
+  //     }
+  //   };
 
-    fetchCsrfToken();
-  }, []);
+  //   fetchCsrfToken();
+  // }, []);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)

@@ -7,10 +7,26 @@ import UserInfoInputForm from "../../components/molecule/InputForm/UserInfoInput
 import Header from "../../components/organism/Header/Header";
 import { loginContainer, loginInputFormContainer, loginWrapper, registerLinkContainer } from "./styles";
 import { useState } from "react";
+import axios from "axios";
 
 export default function Login() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
+
+  const [csrfToken, setCsrfToken] = useState('');
+
+  // useEffect(() => {
+  //   const fetchCsrfToken = async () => {
+  //     try {
+  //       const response = await axios.get('csrf 가져올 url');
+  //       setCsrfToken(response.data.csrfToken);
+  //     } catch (error) {
+  //       console.error('CSRF 토큰을 가져오는 중 에러 발생:', error);
+  //     }
+  //   };
+
+  //   fetchCsrfToken();
+  // }, []);
 
   const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setName(e.target.value)
@@ -19,9 +35,28 @@ export default function Login() {
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setEmail(e.target.value)
   }
-  const handleLogin = () => {
-    console.log("1")
+  const handleLogin = async () => {
+    const formData = {
+      name: name,
+      email: email,
+    }
+
+    try {
+      const response = await axios.post('url 주소', formData,
+        {
+          headers: {
+            'Content-Type': 'application/json',
+            'X-CSRFToken': csrfToken
+          }
+        }
+      )
+      console.log(response.data)
+
+    } catch (error) {
+      console.error("Error submitting data:", error);
+    }
   }
+
   return (
     <div css={loginWrapper}>
       <Header/>
