@@ -29,7 +29,9 @@ export default function Quiz() {
 
         setKoreanWordList(koreanWord);
         setEnglishWordList(englishWord);
+        
       }
+      
       catch (error) {
         console.log(error)
       }
@@ -38,12 +40,22 @@ export default function Quiz() {
     fetchData();
   }, [])
 
+  
   const moveToQuiz = () => {
-    navigate('/quiz/quiz', {state: {
-      koreanWordList: koreanWordList,
-      englishWordList: englishWordList
-    }}) 
-  }
+    // Add a delay of 4 seconds (4000 milliseconds)
+    const delay = 3000;
+
+    // Use setTimeout to navigate after the delay
+    setTimeout(() => {
+      navigate('/quiz/quiz', {
+        state: {
+          koreanWordList: koreanWordList,
+          englishWordList: englishWordList,
+        },
+      });
+    }, delay);
+  };
+
   
   return (
     <div css={QuizWrapper}>
