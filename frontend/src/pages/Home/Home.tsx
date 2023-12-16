@@ -10,6 +10,7 @@ import { homeStyle, contentStyle } from "./styles";
 import AnswerModal from "./component/AnswerModal";
 import { useRecoilValue } from "recoil";
 import { IsLoggedInState } from "../../atom/LoginInfo";
+import axios from "axios";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -71,7 +72,13 @@ export default function Home() {
 
     localStorage.setItem("wordList", JSON.stringify([...wordList, newWordResult]));
 
-    
+    // const csrfToken = await getCsrfToken('url');
+    // const response = postApi(csrfToken, 'url', word);
+    // console.log(response)
+
+    // if(response.similariry === 100.0) {
+    // setIsModalOpen(true);
+    // }
   }
 
 

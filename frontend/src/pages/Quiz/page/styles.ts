@@ -1,5 +1,4 @@
 import { css } from "@emotion/react"
-import { theme } from "../../../style/theme"
 
 export const QuizDetailWrapper = css`
   display: flex;
