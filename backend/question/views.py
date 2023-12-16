@@ -78,7 +78,7 @@ def call_Word_Relation_API(first_word, second_word):
     )
 
     response_data = json.loads(response.data.decode("utf-8"))
-    print(response_data)
+    
     # 유사도 값 추출 (ETRI 알고리즘의 유사도 값)
 
     etri_similarity = response_data["return_object"]["WWN WordRelInfo"]["WordRelInfo"]["Similarity"][0]["SimScore"]
@@ -92,7 +92,6 @@ def call_Word_Relation_API(first_word, second_word):
 def play_game(request):
     try:
         data = request.data.get("word")
-        print(data)
         today_word,wid=word_select()
         #print(today_word)
         if data:
@@ -108,20 +107,3 @@ def play_game(request):
     except json.JSONDecodeError:
         return HttpResponseBadRequest("Invalid JSON data")
 
-
-def incorrect_answer(request):
-    # Add your logic for the incorrect answer view
-    # test
-    return render(request, 'question/incorrect_answer_template.html')
-
-
-def correct_answer(request):
-    # Add your logic for the correct answer view
-    return render(request, 'question/correct_answer_template.html') # test
-
-'''
-@api_view(['GET'])
-def get_csrf_token(request):
-    # 클라이언트에게 CSRF 토큰을 반환
-    return JsonResponse({'csrfToken': get_token(request)})
-'''
