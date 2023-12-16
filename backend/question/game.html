@@ -1,0 +1,21 @@
+<!-- your_app_name/templates/your_app_name/game_template.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game View</title>
+</head>
+
+<body>
+    <h1>Game View</h1>
+    <form method="post" action="{% url 'incorrect_answer' %}">
+        {% csrf_token %}
+        <!-- Add your game form fields here -->
+        게임게임
+        <button type="submit">Submit</button>
+    </form>
+</body>
+
+</html>
