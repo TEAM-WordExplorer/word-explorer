@@ -26,4 +26,4 @@ def today_word(request):
     today_word = word_select(current_date)
 
     context = {'today_word': today_word}
-    return render(request, 'word/today_word.html', context)
+    return render(request, 'today_word.html', context)
