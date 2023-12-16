@@ -48,3 +48,20 @@ export const IntroduceStyle = css`
   margin: 40px;
   text-align: center;
 `
+
+export const AnswerModalContent1Style = css`
+  margin-bottom: 30px;
+  font-size: 40px;
+  font-weight: 550;
+`
+export const AnswerModalContent2Style = css`
+  background: none;
+  border: none;
+
+  text-decoration: underline;
+  text-decoration-color: ${theme.gray.sub2};
+
+  &:active {
+    color: ${theme.gray.sub2};
+  }
+`
