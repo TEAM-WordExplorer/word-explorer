@@ -29,10 +29,7 @@ export default function Header() {
           
         </>
       ):(
-        <>
-          <BackIcon onClick={() => navigate(-1)}/>
-          <Link to='/' style={{ textDecoration: "none" }}>로그아웃</Link>
-        </>
+        <BackIcon onClick={() => navigate(-1)}/>
       )}
       
     </div>
