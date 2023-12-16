@@ -23,9 +23,9 @@ def word_quiz(request):
         user_id = request.data.get("userId")
         print(user_id)
         user = get_object_or_404(User, id=user_id)
-        like_words = user.likeWords.all()
-        eng_list={}
-        random.shuffle(like_words)
+        like_words = list(user.likeWords.all())  # QuerySet을 리스트로 변환
+        eng_list = {}
+        random.shuffle(like_words)  # 리스트를 무작위로 섞음
         for word in like_words:
             eng_list[word.text] = translator_to_eng(word.text)
             print(word.text)
