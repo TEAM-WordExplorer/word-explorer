@@ -7,7 +7,7 @@ import requests
 from django.shortcuts import render
 from django.db import models
 from django.utils import timezone
-from word.models import Word, WordGameResult
+from word.models import Word
 from user.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
