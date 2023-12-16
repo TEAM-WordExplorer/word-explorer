@@ -8,3 +8,8 @@ export const InputFormStyle = css`
   margin-top: 40px;
   margin-bottom: 20px;
 `
+
+export const UserInfoInputFormStyle = css`
+  margin: 20px 0;
+  font-weight: bold;
+`
