@@ -13,3 +13,13 @@ export const HeaderWrapper = css`
 
   background-color: ${theme.white}
 `
+
+export const TextStyle = css`
+  text-decoration: none;
+  &:hover{
+    color: ${theme.gray.sub2}
+  }
+  &:active{
+    color: ${theme.gray.sub2}
+  }
+`

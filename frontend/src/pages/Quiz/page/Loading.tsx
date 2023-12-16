@@ -2,16 +2,19 @@
 
 import Header from "../../../components/organism/Header/Header";
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useLocation } from "react-router";
 import { LoadingContainer, LoadingTextWrapper, LoadingWrapper } from "./styles";
 import { BigLogoIcon } from "../../../assets";
 
 export default function Loading() {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const location = useLocation();
+  const answerList = location.state;
+
   const [loadingText, setLoadingText] = useState('');
   
   useEffect(() => {
-    const timer = setTimeout(() => navigate('/quiz/result')
+    const timer = setTimeout(() => navigate('/quiz/result', {state: answerList})
       , 3000);
 
     const interval = setInterval(() => {

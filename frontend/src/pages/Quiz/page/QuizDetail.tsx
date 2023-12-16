@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router"
 import Header from "../../../components/organism/Header/Header";
 import Input from "../../../components/atom/Input/Input";
 import RoundButton from "../../../components/atom/Button/RoundButton";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Box from "../../../components/atom/Box/Box";
 import { NextButtonForm, QuizDetailContainer, QuizDetailWrapper, QuizInputForm } from "./styles";
 
@@ -17,18 +17,24 @@ export default function QuizDetail() {
   const [answer, setAnswer] = useState("");
   const [currentPage, setCurrentPage] = useState(0);  
   const isLastPage = currentPage === fruits.length - 1;
-
-  const handleNextPage = () => {
-    setCurrentPage((prev) => (prev + 1))
-  }
+  const [answerList, setAnswerList] = useState({});
 
   const handleAnswerChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setAnswer(e.target.value)
   }
 
   const handleSubmit = () => {
-    navigate('/loading')
+    setAnswerList((prevAnswerList) => ({ ...prevAnswerList, [currentPage]: answer }));
+    setCurrentPage((prev) => (prev + 1));
+    setAnswer("");
   }
+  
+  useEffect(() => {
+    if (Object.keys(answerList).length === fruits.length) {
+      navigate('/loading', { state: answerList })
+    }
+  }, [answerList]);
+
   return (
     <div css={QuizDetailWrapper}>
       <Header />
@@ -39,7 +45,7 @@ export default function QuizDetail() {
           <div css={NextButtonForm}>
             <RoundButton
               message={isLastPage ? "채점 하기" : "다음"}
-              onClick={isLastPage ? handleSubmit : handleNextPage }
+              onClick={handleSubmit}
               width="100px"
               borderRadius="20px"
             />

@@ -2,7 +2,7 @@
 
 import { BackIcon, SmallLogoIcon } from "../../../assets";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { HeaderWrapper } from "./stlyes";
+import { HeaderWrapper, TextStyle } from "./stlyes";
 import { useRecoilState} from "recoil";
 import { IsLoggedInState } from "../../../atom/LoginInfo";
 
@@ -13,6 +13,7 @@ export default function Header() {
 
   const handleLogout = () => {
     setIsLoggedIn(false);
+    localStorage.setItem('isLoggedIn', 'false');
     navigate('/');
   }
 
@@ -22,14 +23,18 @@ export default function Header() {
         <>
           <SmallLogoIcon onClick={() => navigate('/')} />
           {isLoggedIn ? (
-            <div onClick={handleLogout}>로그아웃</div>
+            <div onClick={handleLogout} css={TextStyle}>로그아웃</div>
           ):(
-            <Link to = '/login' style = {{ textDecoration: "none" }}>로그인</Link>
+              <Link to='/login' css={TextStyle}>로그인</Link>
           )}
           
         </>
       ):(
-        <BackIcon onClick={() => navigate(-1)}/>
+        <>
+          <BackIcon onClick={() => navigate(-1)} />
+          <Link to='/' css={TextStyle}>홈</Link>
+        </>
+        
       )}
       
     </div>
