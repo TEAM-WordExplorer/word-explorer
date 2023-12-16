@@ -41,7 +41,7 @@ export default function Login() {
         // 회원가입 성공 시 로그인 페이지로 이동
         navigate('/');
       } else {
-        console.error('Error during registration:', response.data.message);
+        alert(response.data.message);
       }
     }
     catch (error) {
