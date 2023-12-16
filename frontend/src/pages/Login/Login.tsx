@@ -36,6 +36,7 @@ export default function Login() {
 
       if (response.data.success) {
         setSuccess(true);
+        console.log(response.data.success);
         // 회원가입 성공 시 로그인 페이지로 이동
         navigate('/');
       } else {
