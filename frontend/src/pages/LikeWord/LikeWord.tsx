@@ -12,7 +12,7 @@ export default function LikeWord() {
 
   const navigate = useNavigate();
 
-  /*** 좋아요 목록 가져오는 부분***/
+  /*** 좋아요 단어 목록 가져오는 부분***/
   // useEffect(()=>{
   //   try{
   //     const response = axios.get('url');
