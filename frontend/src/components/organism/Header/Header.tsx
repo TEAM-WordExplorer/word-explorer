@@ -11,11 +11,14 @@ export default function Header() {
   return (
     <div css={HeaderWrapper}>
       {location.pathname === '/' ? (
-        <SmallLogoIcon onClick={() => navigate('/')} />
+        <>
+          <SmallLogoIcon onClick={() => navigate('/')} />
+          <Link to='/login' style={{ textDecoration: "none"}}>로그인</Link>
+        </>
       ):(
         <BackIcon onClick={() => navigate(-1)}/>
       )}
-      <Link to='/' style={{ textDecoration: "none"}}>로그인</Link>
+      
     </div>
   )
 }
