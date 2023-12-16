@@ -50,9 +50,9 @@ export default function Home() {
         />
         <InputForm
           message="추측하기" 
-          onClick={ButtonClick1} 
-          color={theme.purple.main}
+          onClick={ButtonClick1}
           width="170px"
+          borderRadius="15px"
         />
         <WordResultBox wordResultList={wordList} />
         <Introduce/>
