@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import axios from 'axios';
 import ButtonGroup from "../../components/molecule/ButtonGroup/ButtonGroup";
 import InputForm from "../../components/molecule/InputForm/InputForm";
 import Header from "../../components/organism/Header/Header";

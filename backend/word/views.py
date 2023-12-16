@@ -4,8 +4,6 @@ from django.shortcuts import render
 from .models import Word
 from datetime import date
 import random
-
-
 def word_select(current_date):
     seed = f"{current_date}"
     random.seed(seed)
