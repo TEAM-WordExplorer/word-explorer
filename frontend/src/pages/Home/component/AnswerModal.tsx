@@ -1,17 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Modal } from "../../../components/molecule/Modal/Modal";
 import { AnswerModalContent1Style, AnswerModalContent2Style } from "./styles";
-import { getCsrfToken, postApi } from "../../../api/authService";
 import { useRecoilValue } from "recoil";
 import { IsLoggedInState } from "../../../atom/LoginInfo";
+import axios from "axios";
+import { UserInfoState } from "../../../atom/UserInfo";
 
 interface LikeProps{
-  word: string;
+  wid: number;
 }
 export default function AnswerModal(props: LikeProps) {
-  const { word } = props;
+  const { wid } = props;
+  const userId = useRecoilValue(UserInfoState);
 
   const [modalOpen, setModalOpen] = useState(true);
   const isLoggedIn = useRecoilValue(IsLoggedInState);
@@ -21,13 +23,22 @@ export default function AnswerModal(props: LikeProps) {
   };
 
   const handleLikeSubmit = async () => {
+    const formData = {
+      "userId": userId,
+      "wId": wid
+    }
     if(isLoggedIn){
-      const csrfToken = await getCsrfToken('url');
-      const response = postApi(csrfToken, 'url', word);
-      console.log(response);
+      try{
+        const response = axios.post('url', formData); // 이 부분 url 수정하면 됨
+        console.log(response);
+      }
+      catch(error){
+        console.log(error)
+      }
     }
     else alert("로그인이 필요합니다.")
   }
+
   return (
     <Modal isOpen={modalOpen} onClose={handleModalClose}>
       <div css={AnswerModalContent1Style}>정답!</div>
