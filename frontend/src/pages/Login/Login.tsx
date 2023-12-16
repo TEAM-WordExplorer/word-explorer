@@ -6,8 +6,19 @@ import RoundButton from "../../components/atom/Button/RoundButton";
 import UserInfoInputForm from "../../components/molecule/InputForm/UserInfoInputForm";
 import Header from "../../components/organism/Header/Header";
 import { loginContainer, loginInputFormContainer, loginWrapper, registerLinkContainer } from "./styles";
+import { useState } from "react";
 
 export default function Login() {
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+
+  const handleNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setName(e.target.value)
+    console.log(name)
+  }
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(e.target.value)
+  }
   const handleLogin = () => {
     console.log("1")
   }
@@ -17,8 +28,8 @@ export default function Login() {
       <div css={loginContainer}>
         <BigLogoIcon/>
         <div css={loginInputFormContainer}>
-          <UserInfoInputForm title="이메일"/>
-          <UserInfoInputForm title="비밀번호" />
+          <UserInfoInputForm title="이메일" value={name} onChange={handleNameChange}/>
+          <UserInfoInputForm title="비밀번호" value={email} onChange={handleEmailChange}/>
         </div>
         <div>
           <RoundButton
@@ -29,7 +40,7 @@ export default function Login() {
           />
         </div>
         <div css={registerLinkContainer}>
-          <Link to='/'>회원가입</Link>
+          <Link to='/register'>회원가입</Link>
         </div>
       </div>
     </div>  
