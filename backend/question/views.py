@@ -96,10 +96,9 @@ def play_game(request):
             sim=call_Word_Relation_API(data, today_word)
             print(sim)
             # Process the ETRI API result (replace with your logic)
-            {
-                "results": {"word": "data", "similarity": 0.8}
-            }  # test
-            return JsonResponse(result)
+            results= {"word": data, "similarity": sim}
+            
+            return JsonResponse(results)
 
         return HttpResponseBadRequest("Invalid input data")
     except json.JSONDecodeError:
