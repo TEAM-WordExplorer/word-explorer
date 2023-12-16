@@ -9,12 +9,14 @@ import { loginContainer, loginInputFormContainer, loginWrapper, registerLinkCont
 import { useState } from "react";
 import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { useRecoilState } from "recoil";
+import { IsLoggedInState } from "../../atom/LoginInfo";
 
 export default function Login() {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
-  const [success, setSuccess] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useRecoilState(IsLoggedInState);
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value)
@@ -35,11 +37,11 @@ export default function Login() {
       const response = await axios.post('http://127.0.0.1:8000/user/login/', formData);
 
       if (response.data.success) {
-        setSuccess(true);
+        setIsLoggedIn(true);
         // 회원가입 성공 시 로그인 페이지로 이동
         navigate('/');
       } else {
-        console.error('Error during registration:', response.data.message);
+        alert(response.data.message);
       }
     }
     catch (error) {
