@@ -29,8 +29,16 @@ export default function AnswerModal(props: LikeProps) {
     }
     if(isLoggedIn){
       try{
-        const response = axios.post('url', formData); // 이 부분 url 수정하면 됨
-        console.log(response);
+        const response = await axios.post('http://127.0.0.1:8000/word_like/', formData); // 이 부분 url 수정하면 됨
+        const responseData = response.data;
+
+        if (responseData.success) {
+          // 서버로부터의 응답이 성공인 경우 모달을 닫습니다.
+          handleModalClose();
+        } else {
+          // 서버로부터의 응답이 실패인 경우 여기에서 추가적인 처리를 할 수 있습니다.
+          console.log("Like submission failed:", responseData.error);
+        }
       }
       catch(error){
         console.log(error)

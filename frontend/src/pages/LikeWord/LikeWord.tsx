@@ -17,7 +17,7 @@ export default function LikeWord() {
 
   }
   const [likeWordList, setLikeWordList] = useState<string[]>([]); // 초기 상태의 타입을 string[]로 명시
-
+  
   useEffect(() => {
     console.log(userId);
     const fetchData = async () => {
@@ -30,6 +30,7 @@ export default function LikeWord() {
         console.log(processedData);
         setLikeWordList(processedData);
         console.log(likeWordList)
+        
         
       } catch (error) {
         console.log(error);
