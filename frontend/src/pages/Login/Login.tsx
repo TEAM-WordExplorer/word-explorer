@@ -11,12 +11,14 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import { useRecoilState } from "recoil";
 import { IsLoggedInState } from "../../atom/LoginInfo";
+import { UserInfoState } from "../../atom/UserInfo";
 
 export default function Login() {
   const navigate = useNavigate();
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [isLoggedIn, setIsLoggedIn] = useRecoilState(IsLoggedInState);
+  const [userId, setUserId] = useRecoilState(UserInfoState);
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPassword(e.target.value)
@@ -35,9 +37,9 @@ export default function Login() {
     try {
       // Django의 로그인 API 호출
       const response = await axios.post('http://127.0.0.1:8000/user/login/', formData);
-
+      
       if (response.data.success) {
-
+        setUserId(response.data.uid)
         setIsLoggedIn(true);
         localStorage.setItem('isLoggedIn', 'true');
         // 회원가입 성공 시 로그인 페이지로 이동

@@ -7,21 +7,25 @@ import { theme } from "../../style/theme";
 import { LikeWordBox1, LikeWordBox2, LikeWordContainer, LikeWordWrapper } from "./styles";
 import { useEffect } from "react";
 import axios from "axios";
+import { useRecoilValue } from "recoil";
+import { UserInfoState } from "../../atom/UserInfo";
 
 export default function LikeWord() {
 
   const navigate = useNavigate();
+  const userId = useRecoilValue(UserInfoState);
 
   /*** 좋아요 단어 목록 가져오는 부분***/
-useEffect(()=>{
-  try{
-    const response = axios.get('http://127.0.0.1:8000/like/');
-    console.log(response)
-}
+  useEffect(()=>{
+    console.log(userId)
+    try{
+      const response = axios.post('http://127.0.0.1:8000/like/', userId);
+      console.log(response)
+    } 
     catch(error){
-    console.log(error);
+      console.log(error);
     }
-    },[])
+  },[])
 
   const ButtonClick = (word: string) => {
     navigate(`/like/${word}`)
