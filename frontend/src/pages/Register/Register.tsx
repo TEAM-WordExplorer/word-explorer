@@ -1,12 +1,15 @@
 /** @jsxImportSource @emotion/react */
+
 import React, { useState, useEffect } from "react";
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
+
 import { MediumLogoIcon } from "../../assets";
 import RoundButton from "../../components/atom/Button/RoundButton";
 import UserInfoInputForm from "../../components/molecule/InputForm/UserInfoInputForm";
 import Header from "../../components/organism/Header/Header";
 import { registerContainer, registerInputFormContainer, registerWrapper } from "./styles";
+
 
 export default function Register() {
   const navigate = useNavigate();
