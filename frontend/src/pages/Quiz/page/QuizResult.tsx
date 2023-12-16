@@ -8,16 +8,12 @@ import { QuizResultWrapper } from "./styles";
 
 export default function QuizResult() {
 
-  const wordlist = [ 
-      "apple", "lemon", "pea"
-  ]
-
   const location = useLocation();
-  const answerList = location.state || {};
+  const { answerList, englishWordList } = location.state || {};
 
   const list = Object.keys(answerList).map((word, index) => ({
     answer: answerList[word],
-    word: wordlist[index],
+    word: englishWordList[index],
   }));
 
   return (
