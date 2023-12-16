@@ -9,6 +9,7 @@ import { homeStyle, contentStyle } from "./styles";
 import { useState } from "react";
 import axios from "axios";
 import { getCsrfToken, postApi } from "../../api/authService";
+import AnswerModal from "./component/AnswerModal";
 
 export default function Home() {
 
@@ -20,6 +21,7 @@ export default function Home() {
     const storedWordList = localStorage.getItem("wordList");
     return storedWordList ? JSON.parse(storedWordList) : [];
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const ButtonClick1 = () => {
     navigate('/like')
@@ -39,9 +41,13 @@ export default function Home() {
 
     localStorage.setItem("wordList", JSON.stringify([...wordList, newWordResult]));
 
-    const csrfToken = await getCsrfToken('url');
-    const response = postApi(csrfToken, 'url', word);
-    console.log(response)
+    // const csrfToken = await getCsrfToken('url');
+    // const response = postApi(csrfToken, 'url', word);
+    // console.log(response)
+
+    // if(response.similariry === 1.0) {
+    // setIsModalOpen(true);
+    // }
   }
 
 
@@ -66,6 +72,9 @@ export default function Home() {
         <WordResultBox wordResultList={wordList} />
         <Introduce/>
       </div>
+      {isModalOpen && (
+        <AnswerModal word={word}/>
+      )}
 
     </div>
   )

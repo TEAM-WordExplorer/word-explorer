@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { MediumLogoIcon } from "../../assets";
 import RoundButton from "../../components/atom/Button/RoundButton";
 import UserInfoInputForm from "../../components/molecule/InputForm/UserInfoInputForm";
 import Header from "../../components/organism/Header/Header";
 import { registerContainer, registerInputFormContainer, registerWrapper } from "./styles";
-import axios from 'axios';
 import { getCsrfToken, postApi } from "../../api/authService";
 
 export default function Register() {
