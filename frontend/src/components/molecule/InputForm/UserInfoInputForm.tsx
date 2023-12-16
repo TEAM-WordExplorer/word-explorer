@@ -5,14 +5,17 @@ import { UserInfoInputFormStyle } from "./styles";
 
 interface InputTitleProps {
   title: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>)
+    => void;
 }
 
 export default function UserInfoInputForm(props: InputTitleProps) {
-  const { title } = props;
+  const { title, value, onChange } = props;
   return (
     <div css={UserInfoInputFormStyle}>
       <div>{title}</div>
-      <RoundInput/>
+      <RoundInput value={value} onChange={onChange}/>
     </div>
   )
 }
