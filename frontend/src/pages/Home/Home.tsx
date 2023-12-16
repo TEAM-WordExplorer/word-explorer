@@ -17,6 +17,7 @@ export default function Home() {
   const navigate = useNavigate();
   const isLoggedIn = useRecoilValue(IsLoggedInState);
 
+  const [wid, setWid] = useState(-1);
   const [word, setWord] = useState("");
   const [wordList, setWordList] = useState<{ word: string; similarity: number }[]>(() => {
     // 로컬 스토리지 사용
@@ -44,50 +45,29 @@ export default function Home() {
       word: word
     };
 
-    const newWordResult = { word: word, similarity: 0.9 };
+    // const newWordResult = { word: word, similarity: 0.9 };
     // 클라이언트에서 서버로 데이터 전송
     try {
       const response = await axios.post('http://127.0.0.1:8000/question/game/', wordData);
       console.log(response.data); // 서버에서 온 응답 확인
       
-      // 서버로부터 받은 응답에 따라 필요한 처리 수행
-      if (response.data.success) {
-        // 성공적으로 처리된 경우
-        const newWordResult = response.data; // Use the response directly
-        console.log(newWordResult); // 서버에서 온 응답 확인
+      const newWordResult = response.data; // Use the response directly
+      console.log(newWordResult); // 서버에서 온 응답 확인
 
-        if (newWordResult.similarity >= 0.999) {
-          setIsModalOpen(true); // Display modal for correct answer
-        } else {
-          // Handle the case when similarity is not sufficient for a correct answer
-          console.log('Incorrect answer. Try again!');
-        }
-        setWordList((prevWordList) => [...prevWordList, newWordResult]);
-        setWord("");
-        localStorage.setItem("wordList", JSON.stringify([...wordList, newWordResult]));
-
-        
-      } 
-      else {
-        // 처리에 실패한 경우
-        console.error('Error during data submission:', response.data.message);
+      if (newWordResult.similarity >= 0.999) {
+        setWid(newWordResult.wid);
+        setIsModalOpen(true); // Display modal for correct answer
+      } else {
+        // Handle the case when similarity is not sufficient for a correct answer
+        console.log('Incorrect answer. Try again!');
       }
+      setWordList((prevWordList) => [...prevWordList, newWordResult]);
+      setWord("");
+      localStorage.setItem("wordList", JSON.stringify([...wordList, newWordResult]));
     } 
     catch (error) {
-      if (error instanceof Error) {
-        console.log(error.message);
-      } else {
-        console.log(error);
-      }
+      console.log(error);
     }
-    
-    // const csrfToken = await getCsrfToken('url');
-    // const response = postApi(csrfToken, 'url', word);
-    // console.log(response)
-
-    // if(response.similariry === 100.0) {
-    // setIsModalOpen(true);
-    // }
   }
 
 
@@ -116,7 +96,7 @@ export default function Home() {
         <Introduce />
       </div>
       {isModalOpen && (
-        <AnswerModal word={word}/>
+        <AnswerModal wid={wid}/>
       )}
     </div>
   );
