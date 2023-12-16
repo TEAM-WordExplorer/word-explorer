@@ -7,6 +7,7 @@ import Header from "../../components/organism/Header/Header";
 import Introduce from "./component/Introduce";
 import WordResultBox from "./component/WordResultBox";
 import { homeStyle, contentStyle } from "./styles";
+import { useState } from "react";
 import axios from "axios";
 import { getCsrfToken, postApi } from "../../api/authService";
 
