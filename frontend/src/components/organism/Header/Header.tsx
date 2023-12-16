@@ -29,7 +29,11 @@ export default function Header() {
           
         </>
       ):(
-        <BackIcon onClick={() => navigate(-1)}/>
+        <>
+          <BackIcon onClick={() => navigate(-1)} />
+          <Link to='/'>홈</Link>
+        </>
+        
       )}
       
     </div>
