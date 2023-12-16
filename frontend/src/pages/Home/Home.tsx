@@ -10,6 +10,7 @@ import { homeStyle, contentStyle } from "./styles";
 import AnswerModal from "./component/AnswerModal";
 import { useRecoilValue } from "recoil";
 import { IsLoggedInState } from "../../atom/LoginInfo";
+import axios from "axios";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -38,7 +39,34 @@ export default function Home() {
   }
 
   const handleSubmit = async() => {
+    const wordData = {
+      word: word,
+      
+    };
+
     const newWordResult = { word: word, similarity: 0.9 };
+    // 클라이언트에서 서버로 데이터 전송
+    try {
+      const response = await axios.post('http://127.0.0.1:8000/question/game/', wordData);
+      console.log(response.data); // 서버에서 온 응답 확인
+
+      // 서버로부터 받은 응답에 따라 필요한 처리 수행
+      if (response.data.success) {
+        // 성공적으로 처리된 경우
+        setIsModalOpen(true);
+      } 
+      else {
+        // 처리에 실패한 경우
+        console.error('Error during data submission:', response.data.message);
+      }
+    } 
+    catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      } else {
+        console.log(error);
+      }
+    }
     setWordList((prevWordList) => [...prevWordList, newWordResult]);
     setWord("");
 
