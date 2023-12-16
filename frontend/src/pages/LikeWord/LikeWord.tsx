@@ -5,10 +5,23 @@ import SquareButton from "../../components/atom/Button/SquareButton";
 import Header from "../../components/organism/Header/Header";
 import { theme } from "../../style/theme";
 import { LikeWordBox1, LikeWordBox2, LikeWordContainer, LikeWordWrapper } from "./styles";
+import { useEffect } from "react";
+import axios from "axios";
 
 export default function LikeWord() {
 
   const navigate = useNavigate();
+
+  /*** 좋아요 목록 가져오는 부분***/
+  // useEffect(()=>{
+  //   try{
+  //     const response = axios.get('url');
+  //     console.log(response)
+  //   }
+  //   catch(error){
+  //     console.log(error);
+  //   }
+  // },[])
 
   const ButtonClick = (word: string) => {
     navigate(`/like/${word}`)
@@ -40,7 +53,6 @@ export default function LikeWord() {
               />
               </div>
             )
-          
         ))}
       </div>
     </div>
