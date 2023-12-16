@@ -6,12 +6,14 @@ import { AnswerModalContent1Style, AnswerModalContent2Style } from "./styles";
 import { useRecoilValue } from "recoil";
 import { IsLoggedInState } from "../../../atom/LoginInfo";
 import axios from "axios";
+import { UserInfoState } from "../../../atom/UserInfo";
 
 interface LikeProps{
   wid: number;
 }
 export default function AnswerModal(props: LikeProps) {
   const { wid } = props;
+  const userId = useRecoilValue(UserInfoState);
 
   const [modalOpen, setModalOpen] = useState(true);
   const isLoggedIn = useRecoilValue(IsLoggedInState);
@@ -21,9 +23,13 @@ export default function AnswerModal(props: LikeProps) {
   };
 
   const handleLikeSubmit = async () => {
+    const formData = {
+      "userId": userId,
+      "wId": wid
+    }
     if(isLoggedIn){
       try{
-        const response = axios.post('url', wid); // 이 부분 url 수정하면 됨
+        const response = axios.post('url', formData); // 이 부분 url 수정하면 됨
         console.log(response);
       }
       catch(error){
