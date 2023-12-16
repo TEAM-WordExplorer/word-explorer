@@ -39,8 +39,8 @@ export default function Home() {
 
     localStorage.setItem("wordList", JSON.stringify([...wordList, newWordResult]));
 
-    const csrfToken = await getCsrfToken();
-    const response = await postApi(csrfToken, 'url', word);
+    const csrfToken = await getCsrfToken('url');
+    const response = postApi(csrfToken, 'url', word);
     console.log(response)
   }
 

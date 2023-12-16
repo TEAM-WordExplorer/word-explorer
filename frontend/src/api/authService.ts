@@ -1,11 +1,24 @@
 import axios from "axios";
 
-export const getCsrfToken = async () => {
+// useEffect(() => {
+//   const fetchCsrfToken = async () => {
+//     try {
+//       const response = await axios.get('csrf 가져올 url');
+//       setCsrfToken(response.data.csrfToken);
+//     } catch (error) {
+//       console.error('CSRF 토큰을 가져오는 중 에러 발생:', error);
+//     }
+//   };
+
+//   fetchCsrfToken();
+// }, []);
+
+export const getCsrfToken = async (url: string) => {
   try {
-    const response = await axios.get('url');
+    const response = await axios.get(url);
     return response.data.csrfToken;
   } catch (error) {
-    console.error('Error while fetching CSRF token:', error);
+    console.error('Csrf Token 가져오기 실패:', error);
     return undefined;
   }
 };
