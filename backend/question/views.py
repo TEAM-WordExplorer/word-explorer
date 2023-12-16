@@ -37,6 +37,7 @@ def word_select():
     
     try:
         today_word = Word.objects.get(wordId=random_index)
+        wid = random_index
         today_word = str(today_word)
         idx=today_word.index(":")
         today_word = today_word[idx+2:]
@@ -44,9 +45,10 @@ def word_select():
     
     except Word.DoesNotExist:
         print("해당 ID에 해당하는 객체가 존재하지 않습니다.")
-        today_word = "하늘"
+        today_word = "가로수"
+        wid = 3796
     
-    return today_word
+    return today_word, wid
 
 
 def call_Word_Relation_API(first_word, second_word):
@@ -90,14 +92,14 @@ def play_game(request):
     try:
         data = request.data.get("word")
         print(data)
-        today_word=word_select()
+        today_word,wid=word_select()
         #print(today_word)
         if data:
             # Call ETRI API
             sim=call_Word_Relation_API(data, today_word)
             print(sim)
             # Process the ETRI API result (replace with your logic)
-            results= {"word": data, "similarity": sim}
+            results = {"word": data, "similarity": sim, 'wid': wid}
             
             return JsonResponse(results)
 
