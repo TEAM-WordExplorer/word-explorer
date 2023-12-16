@@ -37,7 +37,9 @@ export default function Login() {
       const response = await axios.post('http://127.0.0.1:8000/user/login/', formData);
 
       if (response.data.success) {
+
         setIsLoggedIn(true);
+
         // 회원가입 성공 시 로그인 페이지로 이동
         navigate('/');
       } else {

@@ -1,12 +1,13 @@
 from django.core.management.base import BaseCommand
 from django.db.models import Count
 from django.http import HttpResponse,JsonResponse, HttpResponseBadRequest  # 추가된 부분
+from rest_framework.decorators import api_view
 
 import requests
 from django.shortcuts import render
 from django.db import models
 from django.utils import timezone
-from word.models import Word, WordGameResult
+from word.models import Word
 from user.models import User
 from django.views.decorators.csrf import csrf_exempt
 import json
@@ -52,10 +53,10 @@ def call_ETRI_Word_Relation_API(first_word, first_sense_id, second_word, second_
 
 
 @csrf_exempt
+@api_view(['POST'])
 def play_game(request):
     try:
-        data = json.loads(request.body)
-        user_input = data.get('user_input')
+        data = request.data.get("word")
         print(data)
         if user_input:
             # Call ETRI API
